@@ -15,7 +15,7 @@ export default {
       galleries:{}
     }
   },
-  beforeRouterEnters(to, from ,next){
+  beforeRouteEnter(to, from ,next){
 
       galleryService.getAll()
       .then(response => {
