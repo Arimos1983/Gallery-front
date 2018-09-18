@@ -1,6 +1,6 @@
 <template>
   <div >
-      <form class="container" @submit.prevent="log">
+      <form class="container" @submit.prevent="login">
         <div class="form-group">
             <label for="email">Email address</label>
             <input name="email" type="email" class="form-control" id="email" placeholder="Enter email" v-model="email">
@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { authService } from '../services/AuthService'
 export default {
   name: 'AppLogin',
   data(){
@@ -23,6 +24,17 @@ export default {
           email:'',
           password:'',
           errors: ''
+      }
+  },
+  methods:{
+      login(){
+          authService.login(this.email,this.password)
+          .then(() => {
+              this.$router.push('/')
+          })
+          .catch(err => {
+              this.errors = err.response.data.error
+          })
       }
   }
   
