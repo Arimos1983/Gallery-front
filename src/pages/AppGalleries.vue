@@ -1,7 +1,10 @@
 <template>
   <div >
-      <ul v-for="gallery in galleries" :key="gallery.id">
-        <li>{{gallery.name}}</li>
+      <ul class='list-unstyled' v-for="gallery in galleries" :key="gallery.id">
+        <li>Gallery name: <router-link :to="{ name:'gallery', params:{id: gallery.id}}" >{{gallery.name}}</router-link></li>
+        <li><img v-bind:src=gallery.image[0].imageUrl width="100" height="100"></li>
+        <li>Created by: <router-link :to="{name: 'author', params:{id: gallery.user.id}}"> {{gallery.user.first_name}} {{gallery.user.last_name}}</router-link></li>
+        <li>Created at: {{gallery.created_at}}</li>
       </ul>
   </div>
 </template>
@@ -12,7 +15,7 @@ export default {
   name: 'AppGalleries',
   data(){
     return{
-      galleries:{}
+      galleries:[]
     }
   },
   beforeRouteEnter(to, from ,next){

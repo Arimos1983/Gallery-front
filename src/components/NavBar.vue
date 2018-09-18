@@ -2,6 +2,7 @@
   <div >
     <nav class="navbar navbar-light bg-dark">
       <div>
+        <span class="navbar-brand mb-0 h1">Galleries</span>
         <router-link to="/">All Galleries</router-link>
       </div>
       <div>
