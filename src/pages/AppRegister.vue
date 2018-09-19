@@ -53,7 +53,7 @@ export default {
           console.log(this.newUser)
           authService.register(this.newUser)
           .then(() => {
-          this.$router.push("/login")
+          this.$router.push("/")
         })
         .catch(error => this.errors = error.response.data.errors)
       }

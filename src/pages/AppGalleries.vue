@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import store from '../store'
 import { galleryService } from '../services/GalleryService'
 export default {
   name: 'AppGalleries',
@@ -26,6 +27,7 @@ export default {
         vm.galleries = response.data
         })
       })
+      store.dispatch('isAuthenticated')
 
   }
   

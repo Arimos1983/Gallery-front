@@ -4,7 +4,7 @@
         <li><h3>Gallery name: {{gallery.name}}</h3></li>
         <li v-if="gallery.user" >Created by: <router-link :to="{name: 'author', params:{id: gallery.user.id}}"> {{gallery.user.first_name}} {{gallery.user.last_name}}</router-link></li>
         <li>Created at: {{gallery.created_at}}</li>
-        <li>Descrition: {{gallery.description}}</li>
+        <li>Description: {{gallery.description}}</li>
     </ul>
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" >
         <div class="carousel-inner"  >
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import store from '../store'
 import { galleryService } from '../services/GalleryService'
 export default {
   name: 'AppGallery',
@@ -42,6 +43,7 @@ export default {
               vm.gallery = respons.data
           })
       })
+      store.dispatch('isAuthenticated')
   }
   
 }

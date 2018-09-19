@@ -5,6 +5,7 @@ import Gallery from '../pages/AppGallery'
 import Author from '../pages/AppAuthor'
 import Login from '../pages/AppLogin'
 import Register from '../pages/AppRegister'
+import Create from '../pages/AppCreateGallery'
 
 Vue.use(VueRouter)
 
@@ -13,7 +14,8 @@ const routes = [
     {path: '/login', component: Login},
     {path: '/register', component: Register},
     {path: '/galleris/:id', component: Gallery, name: 'gallery'},
-    {path: '/authors/:id', component: Author , name: 'author'}
+    {path: '/authors/:id', component: Author , name: 'author'},
+    {path: '/create', component: Create}
 
 ]
 

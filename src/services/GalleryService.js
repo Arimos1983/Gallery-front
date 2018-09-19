@@ -14,6 +14,9 @@ export default class GalleryService{
     get($id){
         return axios.get( `galleries/${$id}`)
     }
+    addGallery(gallery){
+        return axios.post('galleries', gallery)
+    }
 
 
 }

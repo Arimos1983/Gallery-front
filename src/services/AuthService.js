@@ -24,8 +24,23 @@ export default class AuthService{
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         }
     }
+
     register(newUser){
         return axios.post('auth/register', newUser)
+        .then(response=>{
+            localStorage.setItem("token", response.data.access_token);
+            this.setAxiosDefaultAuthorizationHeader();
+        })
+    }
+
+    isAuthenticated(){
+        return !!localStorage.getItem("token");
+    }
+
+    logout() {
+        axios.post('auth/logout')
+        localStorage.removeItem("token");
+        delete axios.defaults.headers.common["Authorization"];
     }
 
 

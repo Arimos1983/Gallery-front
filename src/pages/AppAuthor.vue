@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import store from '../store'
 import { userService } from '../services/UserService'
 export default {
   name: 'AppAuthor',
@@ -27,6 +28,7 @@ export default {
               vm.user = respons.data
           })
       })
+      store.dispatch('isAuthenticated')
   }
   
 }
