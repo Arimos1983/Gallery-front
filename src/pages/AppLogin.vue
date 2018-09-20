@@ -31,7 +31,7 @@ export default {
       login(){
           authService.login(this.email,this.password)
           .then(() => {
-              this.$router.push('/my_galleries')
+              this.$router.push('/')
           })
           .catch(err => {
               this.errors = err.response.data.error

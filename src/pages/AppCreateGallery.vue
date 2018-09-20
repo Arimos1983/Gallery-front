@@ -15,11 +15,14 @@
                 <label for="url">Enter an https:// URL:</label>
 
                 <div class="row" v-for="(number , index) in numberOfFields" :key="index">
-                    <input type="url" class="form-control col-10" id="url" placeholder="https://example.com" v-model="newGallery.images[index]">
+                    <input type="text" class="form-control col-10" id="url" placeholder="https://example.com" v-model="newGallery.images[index]">
                     <button class="btn btn-danger col glyphicon glyphicon-minus" v-if="numberOfFields > 1" @click.prevent="removeRow(index)">-</button>
                     <button type="button" class="btn btn-success col"  @click.prevent="moveRowUp(index)">Up</button>
                     <button type="button" class="btn btn-success col"  @click.prevent="moveRowDown(index)">Down</button>
-                    <p class="alert alert-danger" v-if="errors.images">{{ errors.images[0] }}</p>
+                    <p class="alert alert-danger" v-if="errors.images">{{ errors.images[0]}}</p>
+                    <p class="alert alert-danger" v-if="errors[`images.${index}`]">Wrong format of image</p>
+
+
                 </div>          
             </div>
             <div class="form-group">
@@ -27,7 +30,7 @@
             </div>
             <div class="form-group">
                 <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-                <router-link class="btn alert-danger" to="/">Cancel</router-link>
+                <router-link class="btn alert-danger" to="/my_galleries">Cancel</router-link>
             </div>
         </form>
     </div>
@@ -69,7 +72,7 @@ export default {
       addGallery(){
           galleryService.addGallery(this.newGallery)
           .then(() => {
-          this.$router.push('/')
+          this.$router.push('/my_galleries')
         })
         .catch(error => this.errors = error.response.data.errors)
       }
