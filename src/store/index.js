@@ -9,14 +9,14 @@ const store = new Vuex.Store({
 
     state:{
 
-        isAuthenticated: false 
+        isAuthenticated: false,
     },
 
     getters:{
         
         getIsAuthenticated(state){
             return state.isAuthenticated;
-        }
+        },
     },
     mutations:{
 
@@ -25,7 +25,8 @@ const store = new Vuex.Store({
         },
         logout(state){
             state.isAuthenticated = false
-        }
+            state.loggedUser = false
+        },
 
     },
 
@@ -37,7 +38,8 @@ const store = new Vuex.Store({
         },
         logout(context){
             context.commit('logout')
-        }
+        },
+        
     }
 
 

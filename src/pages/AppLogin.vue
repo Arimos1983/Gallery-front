@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import store from '../store'
 import { authService } from '../services/AuthService'
 export default {
   name: 'AppLogin',
@@ -30,7 +31,7 @@ export default {
       login(){
           authService.login(this.email,this.password)
           .then(() => {
-              this.$router.push('/')
+              this.$router.push('/my_galleries')
           })
           .catch(err => {
               this.errors = err.response.data.error

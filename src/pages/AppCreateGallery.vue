@@ -15,9 +15,11 @@
                 <label for="url">Enter an https:// URL:</label>
 
                 <div class="row" v-for="(number , index) in numberOfFields" :key="index">
-                    <input type="url" class="form-control col-11" id="url" placeholder="https://example.com" v-model="newGallery.images[index]">
-                    <button class="btn btn-danger col" v-if="numberOfFields.length > 1" @click.prevent="removeRow(index)">-</button>
-                    <p class="alert alert-danger" v-if="errors.email">{{ errors.email[0] }}</p>
+                    <input type="url" class="form-control col-10" id="url" placeholder="https://example.com" v-model="newGallery.images[index]">
+                    <button class="btn btn-danger col glyphicon glyphicon-minus" v-if="numberOfFields > 1" @click.prevent="removeRow(index)">-</button>
+                    <button type="button" class="btn btn-success col"  @click.prevent="moveRowUp(index)">Up</button>
+                    <button type="button" class="btn btn-success col"  @click.prevent="moveRowDown(index)">Down</button>
+                    <p class="alert alert-danger" v-if="errors.images">{{ errors.images[0] }}</p>
                 </div>          
             </div>
             <div class="form-group">
@@ -42,19 +44,27 @@ export default {
         newGallery:{
           images:[]
         },
-        numberOfFields:[{value:''}],
+        numberOfFields:1,
         errors:''
       }
   },
   methods:{
       addRow(){
-          this.numberOfFields.push({
-              value:1
-          })
+          this.numberOfFields++
       },
       removeRow(index){
-          console.log(index)
-          this.numberOfFields.splice(index,1)
+          this.newGallery.images.splice(index,1)
+          this.numberOfFields--
+      },
+      moveRowUp(index){
+          if(index > 0){
+          this.newGallery.images.splice(index-1, 0,  this.newGallery.images.splice(index, 1))
+          }
+      },
+      moveRowDown(index){
+          if(index <  this.numberOfFields-1){
+          this.newGallery.images.splice(index, 0,  this.newGallery.images.splice(index+1, 1))
+          }
       },
       addGallery(){
           galleryService.addGallery(this.newGallery)

@@ -11,6 +11,9 @@
       <div v-if="!isAuthenticated">
         <router-link to="/register">Register</router-link>
       </div>
+       <div v-if="isAuthenticated">
+        <router-link to="/my_galleries">My Galleries</router-link>
+      </div>
       <div v-if="isAuthenticated">
         <router-link to="/create">Create New Gallery</router-link>
       </div>

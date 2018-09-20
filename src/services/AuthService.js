@@ -14,7 +14,9 @@ export default class AuthService{
         return axios.post('auth/login', {email, password})
         .then(response=>{
             localStorage.setItem("token", response.data.access_token);
+            localStorage.setItem("id", response.data.user.id);
             this.setAxiosDefaultAuthorizationHeader();
+
         })
     }
 
@@ -29,6 +31,7 @@ export default class AuthService{
         return axios.post('auth/register', newUser)
         .then(response=>{
             localStorage.setItem("token", response.data.access_token);
+            localStorage.setItem("id", response.data.user.id);
             this.setAxiosDefaultAuthorizationHeader();
         })
     }
@@ -40,6 +43,7 @@ export default class AuthService{
     logout() {
         axios.post('auth/logout')
         localStorage.removeItem("token");
+        localStorage.removeItem("id");
         delete axios.defaults.headers.common["Authorization"];
     }
 
