@@ -23,7 +23,6 @@ export default {
     }
   },
   beforeRouteEnter(To, from, next){
-      
       userService.get(localStorage.getItem("id"))
       .then( respons => {
         next(vm =>{

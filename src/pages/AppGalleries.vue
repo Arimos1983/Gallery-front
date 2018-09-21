@@ -8,6 +8,9 @@
         <li>Created by: <router-link :to="{name: 'author', params:{id: gallery.user.id}}"> {{gallery.user.first_name}} {{gallery.user.last_name}}</router-link></li>
         <li>Created at: {{gallery.created_at}}</li>
       </ul>
+        <div v-if="!hideButton">
+          <button @click="loadMore">Load 10 more</button>
+        </div>
   </div>
 </template>
 
@@ -23,13 +26,33 @@ export default {
   data(){
     return{
       galleries:[],
-      searchTerm:''
-    }
+      search:'',
+      skip: 0,
+      hideButton: false,
+    }  
+    
   },
   methods:{
+    loadMore(){
+      this.skip += 10
+      this.searchGalleries()
+    },
     setSearchTerm(data){
-      this.searchTerm = data;
-      console.log(this.searchTerm)
+      this.search = data;
+      this.galleries = []
+      this.searchGalleries()
+    },
+    searchGalleries(){
+      console.log(this.search)
+      galleryService.getMore(this.skip,this.search)
+      .then(response => {
+        let count = response.data.length
+        if(count < 11){ this.hideButton = true}
+        if(count == 11){response.data.splice(-1,1)}
+        if(count > 0){
+        this.galleries=this.galleries.concat(response.data)
+        }
+      })
     }
   },
   beforeRouteEnter(to, from ,next){

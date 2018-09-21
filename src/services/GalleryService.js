@@ -11,11 +11,20 @@ export default class GalleryService{
         return axios.get('galleries')
     }
 
-    get($id){
-        return axios.get( `galleries/${$id}`)
+    get(id){
+        return axios.get( `galleries/${id}`)
     }
     addGallery(gallery){
         return axios.post('galleries', gallery)
+    }
+    deleteGallery(id){
+        return axios.delete(`galleries/${id}`)
+    }
+    getMore(skip,search){
+        return axios.get(`getmore?search=${search}&skip=${skip}`)
+    }
+    getUser(id,skip,search){
+        return axios.get(`getuser/${id}?skip=${skip}&search=${search}`)
     }
 
 

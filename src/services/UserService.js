@@ -10,6 +10,7 @@ export default class UserService{
     get($id){
         return axios.get(`users/${$id}`)
     }
+    
 }
 
 export const userService = new UserService()

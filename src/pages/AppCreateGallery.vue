@@ -30,7 +30,7 @@
             </div>
             <div class="form-group">
                 <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-                <router-link class="btn alert-danger" to="/my_galleries">Cancel</router-link>
+                <router-link class="btn btn-danger" to="/my_galleries">Cancel</router-link>
             </div>
         </form>
     </div>
