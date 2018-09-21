@@ -44,7 +44,7 @@ export default {
     },
     searchGalleries(){
       console.log(this.search)
-      galleryService.getMore(this.skip,this.search)
+      galleryService.getGallery(this.skip,this.search)
       .then(response => {
         let count = response.data.length
         if(count < 11){ this.hideButton = true}
@@ -53,14 +53,20 @@ export default {
         this.galleries=this.galleries.concat(response.data)
         }
       })
+    },
+    updateButton(data){
+        let count = data.length
+        if(count < 11){ this.hideButton = true}
+        if(count == 11){data.splice(-1,1)}
+        return data
     }
   },
   beforeRouteEnter(to, from ,next){
 
-      galleryService.getAll()
+      galleryService.getGallery(0,'')
       .then(response => {
         next(vm => {
-        vm.galleries = response.data
+        vm.galleries = vm.updateButton(response.data)
         })
       })
       store.dispatch('isAuthenticated')

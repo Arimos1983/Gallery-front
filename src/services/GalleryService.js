@@ -20,7 +20,7 @@ export default class GalleryService{
     deleteGallery(id){
         return axios.delete(`galleries/${id}`)
     }
-    getMore(skip,search){
+    getGallery(skip,search){
         return axios.get(`getmore?search=${search}&skip=${skip}`)
     }
     getUser(id,skip,search){

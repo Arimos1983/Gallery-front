@@ -65,9 +65,6 @@ export default {
         return data
     }
   },
-  create(){
-
-  },
   beforeRouteEnter(To, from, next){
       next(vm => {
           galleryService.getUser(vm.$route.params.id,0,'')
