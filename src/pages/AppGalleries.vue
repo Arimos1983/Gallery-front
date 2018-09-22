@@ -1,12 +1,12 @@
 <template>
-  <div >
+  <div class="container">
       <h2 v-if="galleries == false">There are no galleries</h2>
       <search @searchTerms="setSearchTerm"></search>
       <ul class='list-unstyled' v-for="gallery in galleries" :key="gallery.id">
         <li>Gallery name: <router-link :to="{ name:'gallery', params:{id: gallery.id}}" >{{gallery.name}}</router-link></li>
-        <li><img v-bind:src=gallery.image[0].imageUrl width="100" height="100"></li>
+        <li><img v-bind:src=gallery.image[0].imageUrl width="200" height="200"></li>
         <li>Created by: <router-link :to="{name: 'author', params:{id: gallery.user.id}}"> {{gallery.user.first_name}} {{gallery.user.last_name}}</router-link></li>
-        <li>Created at: {{gallery.created_at}}</li>
+        <li>Created at: {{gallery.created_at}}</li><hr><hr>
       </ul>
         <div v-if="!hideButton">
           <button @click="loadMore">Load 10 more</button>

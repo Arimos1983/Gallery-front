@@ -41,8 +41,8 @@ export default {
 
     logout(){
       authService.logout()
-      store.dispatch('logout')
-      this.$router.push('/login')
+      store.dispatch('isAuthenticated')
+      this.$router.push('/')
 
     }
   }

@@ -12,11 +12,11 @@ import MyGalleries from '../pages/AppMyGalleries'
 Vue.use(VueRouter)
 
 const routes = [
-    {path: '/', component: Galleries, meta: { require_auth: false }},
-    {path: '/login', component: Login,name: 'login', meta: { require_auth: false } },
-    {path: '/register', component: Register, meta: { require_auth: false }},
-    {path: '/galleris/:id', component: Gallery, name: 'gallery', meta: { require_auth: false }},
-    {path: '/authors/:id', component: Author , name: 'author', meta: { require_auth: false }},
+    {path: '/', component: Galleries, name:'galleries' },
+    {path: '/login', component: Login,name: 'login', meta: { guest: true } },
+    {path: '/register', component: Register, meta: { guest: true }},
+    {path: '/galleris/:id', component: Gallery, name: 'gallery'},
+    {path: '/authors/:id', component: Author , name: 'author'},
     {path: '/create', component: Create, meta: { require_auth: true }},
     {path: '/my_galleries', component: MyGalleries, meta: { require_auth: true }}
 
@@ -39,17 +39,19 @@ router.beforeEach((to, from, next) => {
         return next({name: "login" });
       }
     }
-    else
+   if(to.meta.guest)
     {
       if(store.getters.getIsAuthenticated)
       {
-        return next(false)
+        return next({name:'galleries'})
       }
       else
       {
         return next();
       }
     }
-  })
+    next();
+})
+
 
 export default router;

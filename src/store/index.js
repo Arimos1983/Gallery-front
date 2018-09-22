@@ -9,7 +9,7 @@ const store = new Vuex.Store({
 
     state:{
 
-        isAuthenticated: false,
+        isAuthenticated: authService.isAuthenticated(),
     },
 
     getters:{
@@ -23,10 +23,6 @@ const store = new Vuex.Store({
         setIsAuthenticated(state, data){
             state.isAuthenticated = data
         },
-        logout(state){
-            state.isAuthenticated = false
-            state.loggedUser = false
-        },
 
     },
 
@@ -35,10 +31,7 @@ const store = new Vuex.Store({
         isAuthenticated(context){
          let data =  authService.isAuthenticated()
           context.commit('setIsAuthenticated', data)
-        },
-        logout(context){
-            context.commit('logout')
-        },
+        }
         
     }
 

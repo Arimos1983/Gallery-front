@@ -32,6 +32,7 @@ export default {
           authService.login(this.email,this.password)
           .then(() => {
               this.$router.push('/')
+              store.dispatch('isAuthenticated')
           })
           .catch(err => {
               this.errors = err.response.data.error

@@ -44,7 +44,7 @@
         </table>
     </div> 
     <br>
-    <div >
+    <div v-if="isAuthenticated">
         <form  @submit.prevent="addComment">
             <div class="form-group">
                 <textarea class="form-control" name="text" id="text" v-model="newComment.text" ></textarea>
@@ -61,6 +61,7 @@
 
 <script>
 import store from '../store'
+import { mapGetters } from 'vuex'
 import { commentService } from '../services/CommentService'
 import { galleryService } from '../services/GalleryService'
 export default {
@@ -69,14 +70,20 @@ name: 'AppGallery',
         return {
             user:'',
             gallery:{},
+            
             newComment:{
-                    user_id:'',
-                    gallery_id:'',
+                user_id:'',
+                gallery_id:'',
                     
             },
             
             
         }
+    },
+    computed:{
+    ...mapGetters({
+        isAuthenticated:'getIsAuthenticated'
+        })
     },
     methods:{
         addComment(){   

@@ -54,6 +54,7 @@ export default {
           authService.register(this.newUser)
           .then(() => {
           this.$router.push("/")
+          store.dispatch('isAuthenticated')
         })
         .catch(error => this.errors = error.response.data.errors)
       }

@@ -18,7 +18,6 @@
 <script>
 import Search from '../components/Search'
 import store from '../store'
-import { userService } from '../services/UserService'
 import { galleryService } from '../services/GalleryService'
 export default {
   name: 'AppMyGalleries',
