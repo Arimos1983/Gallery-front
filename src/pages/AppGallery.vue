@@ -22,8 +22,9 @@
             <span class="sr-only">Next</span>
         </a>
     </div><br>
-     <div>
-        <button class="btn btn-danger" v-if="gallery.user_id == user"  type="submit" @click="deleteGallery">Delete Gallery</button>
+     <div v-if="gallery.user_id == authUser" >
+        <button class="btn btn-danger" type="submit" @click="deleteGallery">Delete Gallery</button>
+        <router-link type="button" class="btn btn-primary" :to="{name:'edit-gallery', params:{id: gallery.id}}">Edit gallery</router-link>
     </div><br>
     <div class="container"> 
         <h3>Comments</h3>
@@ -38,7 +39,7 @@
                 <td>{{comment.text}}</td>
             </tr>
             <tr>
-                <td><button class="btn btn-danger" v-if="comment.user_id == user"  @click="deleteComment(index, comment.id)" >Delete Comment</button></td>
+                <td><button class="btn btn-danger" v-if="comment.user_id == authUser"  @click="deleteComment(index, comment.id)" >Delete Comment</button></td>
             </tr>
             <hr>
         </table>
@@ -47,7 +48,7 @@
     <div v-if="isAuthenticated">
         <form  @submit.prevent="addComment">
             <div class="form-group">
-                <textarea class="form-control" name="text" id="text" v-model="newComment.text" ></textarea>
+                <textarea class="form-control" name="text" id="text" v-model="newComment.text" required></textarea>
             </div>
             <div>
                 <button class="btn btn-primary" name="submit" type="submit">Submit</button>
@@ -68,7 +69,7 @@ export default {
 name: 'AppGallery',
     data(){
         return {
-            user:'',
+            authUser:'',
             gallery:{},
             
             newComment:{
@@ -118,7 +119,7 @@ name: 'AppGallery',
             .then( respons => {
                 vm.gallery = respons.data
                 vm.comments = respons.data.comment
-                vm.user = localStorage.getItem("id")
+                vm.authUser = localStorage.getItem("id")
             })
         })
         store.dispatch('isAuthenticated')

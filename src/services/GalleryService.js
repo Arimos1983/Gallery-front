@@ -8,23 +8,25 @@ export default class GalleryService{
     }
 
     getAll(){
-        return axios.get('galleries')
+        return axios.get('galleries');
     }
-
     get(id){
-        return axios.get( `galleries/${id}`)
+        return axios.get( `galleries/${id}`);
     }
     addGallery(gallery){
-        return axios.post('galleries', gallery)
+        return axios.post('galleries', gallery);
     }
     deleteGallery(id){
-        return axios.delete(`galleries/${id}`)
+        return axios.delete(`galleries/${id}`);
     }
     getGallery(skip,search){
-        return axios.get(`getmore?search=${search}&skip=${skip}`)
+        return axios.get(`getmore?search=${search}&skip=${skip}`);
+    }
+    editGallery(id,gallery){
+        return axios.put(`galleries/${id}`, gallery);
     }
     getUser(id,skip,search){
-        return axios.get(`getuser/${id}?skip=${skip}&search=${search}`)
+        return axios.get(`getuser/${id}?skip=${skip}&search=${search}`);
     }
 
 

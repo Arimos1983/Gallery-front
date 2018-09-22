@@ -17,6 +17,7 @@ const routes = [
     {path: '/register', component: Register, meta: { guest: true }},
     {path: '/galleris/:id', component: Gallery, name: 'gallery'},
     {path: '/authors/:id', component: Author , name: 'author'},
+    {path: '/edit-gallery/:id', component: Create, name: 'edit-gallery', meta: { require_auth: true }},
     {path: '/create', component: Create, meta: { require_auth: true }},
     {path: '/my_galleries', component: MyGalleries, meta: { require_auth: true }}
 
