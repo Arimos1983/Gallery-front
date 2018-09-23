@@ -32,7 +32,7 @@
                 <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                 <button class="btn btn-danger" @click="cancel">Cancel</button>
             </div>
-        </form>g
+        </form>
     </div>
 </template>
 
@@ -51,7 +51,7 @@ export default {
         },
         numberOfFields:1,
         errors:'',
-        userErrors:''
+        
       }
   },
   methods:{
@@ -102,7 +102,7 @@ export default {
           .then(()=>{
              this.$router.push({name:'gallery', params:{id:this.$route.params.id}})
           })
-            .catch(error => this.userErrors = error.response.data.errors)
+            .catch(error => this.errors = error.response.data.errors)
 
       }
 

@@ -2,14 +2,23 @@
   <div class="container">
       <h2 v-if="galleries == false">There are no galleries</h2>
       <search @searchTerms="setSearchTerm"></search>
-      <ul class='list-unstyled' v-for="gallery in galleries" :key="gallery.id">
-        <li>Gallery name: <router-link :to="{ name:'gallery', params:{id: gallery.id}}" >{{gallery.name}}</router-link></li>
-        <li><img v-bind:src=gallery.image[0].imageUrl width="200" height="200"></li>
-        <li>Created by: <router-link :to="{name: 'author', params:{id: gallery.user.id}}"> {{gallery.user.first_name}} {{gallery.user.last_name}}</router-link></li>
-        <li>Created at: {{gallery.created_at}}</li><hr><hr>
-      </ul>
+
+      <div  v-for="gallery in galleries" :key="gallery.id">
+        <div class="image">
+          <img v-bind:src=gallery.image[0].imageUrl width="200" height="200">
+        </div>  
+
+        <div class="text-block">
+          <ul class='list-unstyled float-left' >
+            <li><span class="text">Gallery name: </span><router-link :to="{ name:'gallery', params:{id: gallery.id}}" >{{gallery.name}}</router-link><br><br></li>
+            <li><span class="text">Created by: </span><router-link :to="{name: 'author', params:{id: gallery.user.id}}"> {{gallery.user.first_name}} {{gallery.user.last_name}}</router-link></li>
+            <li><span class="text">Created at: </span>{{gallery.created_at}}</li>
+          </ul>
+        </div><hr >
+      </div>
+
         <div v-if="!hideButton">
-          <button @click="loadMore">Load 10 more</button>
+          <button class="btn btn-primary" @click="loadMore">Load 10 more</button>
         </div>
   </div>
 </template>
@@ -38,9 +47,11 @@ export default {
       this.searchGalleries()
     },
     setSearchTerm(data){
+      if(this.search !== data){
       this.search = data;
       this.galleries = []
       this.searchGalleries()
+      }
     },
     searchGalleries(){
       console.log(this.search)
@@ -66,7 +77,9 @@ export default {
       galleryService.getGallery(0,'')
       .then(response => {
         next(vm => {
+          if(response){
         vm.galleries = vm.updateButton(response.data)
+          }
         })
       })
       store.dispatch('isAuthenticated')
@@ -76,5 +89,28 @@ export default {
   
 }
 </script>
+<style scoped>
+
+.text-block{
+  display: inline-block;
+  width:50%; 
+  text-align: left; 
+  padding: 20px;
+
+}
+.text{
+  font-weight: bold;
+}
+
+.image{
+
+  display: inline-block; 
+  vertical-align: top;
+
+}
+
+
+
+</style>
 
 

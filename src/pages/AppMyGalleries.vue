@@ -1,16 +1,20 @@
 <template>
-  <div >
+  <div class="container" >
       <search @searchTerms="setSearch"></search>
-      <ul class='list-unstyled' v-if="gallery[0]" >
-          <li >Author: {{gallery[0].user.first_name}} {{gallery[0].user.last_name}}</li>
-          <ul class='list-unstyled' v-for="gallery in gallery" :key="gallery.id">
-            <li>Gallery name: {{gallery.name}}</li>
-            <li>Created at: {{gallery.created_at}}</li>
-            <li><img v-bind:src=gallery.image[0].imageUrl width="100" height="100"></li>
-          </ul>
-      </ul>
+      <h3  v-if="gallery[0]"><span class="text">Author: </span>{{gallery[0].user.first_name}} {{gallery[0].user.last_name}}</h3><br>
+      <div   v-for="gallery in gallery" :key="gallery.id">
+          <div class="image">
+            <img v-bind:src=gallery.image[0].imageUrl width="200" height="200">
+          </div>
+          <div class="text-block">
+            <ul class='list-unstyled' >
+                <li><span class="text">Gallery name: </span><router-link :to="{name: 'gallery', params:{id: gallery.id}}">{{gallery.name}}</router-link><br><br></li>
+                <li><span class="text">Created at: </span>{{gallery.created_at}}</li>
+            </ul>
+          </div><hr>
+      </div>
         <div v-if="!hideButton">
-          <button @click="loadMore">Load 10 more</button>
+          <button class="btn btn-primary" @click="loadMore">Load 10 more</button>
         </div>
   </div>
 </template>
@@ -33,14 +37,16 @@ export default {
     }
   },
   methods:{
-      loadMore(){
+    loadMore(){
       this.skip += 10
       this.searchUser()
     },
-      setSearch(data){
+    setSearch(data){
+      if(this.search !== data){
       this.search = data;
       this.gallery = []
       this.searchUser()
+      }
     },
     searchUser(){
       console.log(this.user_id)
@@ -76,3 +82,26 @@ export default {
 </script>
 
 
+<style scoped>
+
+.text-block{
+  display: inline-block;
+  width:50%; 
+  text-align: left; 
+  padding: 20px;
+
+}
+.text{
+  font-weight: bold;
+}
+
+.image{
+
+  display: inline-block; 
+  vertical-align: top;
+
+}
+
+
+
+</style>

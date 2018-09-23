@@ -1,10 +1,10 @@
 <template>
   <div  class="container">
     <ul class='list-unstyled' >
-        <li><h3>Gallery name: {{gallery.name}}</h3></li>
-        <li v-if="gallery.user" >Created by: <router-link :to="{name: 'author', params:{id: gallery.user.id}}"> {{gallery.user.first_name}} {{gallery.user.last_name}}</router-link></li>
-        <li>Created at: {{gallery.created_at}}</li>
-        <li>Description: {{gallery.description}}</li>
+        <li><h3>Gallery: {{gallery.name}}</h3></li><br>
+        <li v-if="gallery.user" ><span class="text">Created by: </span><router-link :to="{name: 'author', params:{id: gallery.user.id}}"> {{gallery.user.first_name}} {{gallery.user.last_name}}</router-link></li>
+        <li><span class="text">Created at: </span>{{gallery.created_at}}</li><br>
+        <li><span class="text">Description: </span>{{gallery.description}}</li>
     </ul>
    
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" >
@@ -23,25 +23,24 @@
         </a>
     </div><br>
      <div v-if="gallery.user_id == authUser" >
-        <button class="btn btn-danger" type="submit" @click="deleteGallery">Delete Gallery</button>
-        <router-link type="button" class="btn btn-primary" :to="{name:'edit-gallery', params:{id: gallery.id}}">Edit gallery</router-link>
+        <button class="btn btn-danger button-width" type="submit" @click="deleteGallery">Delete Gallery</button>
+        <router-link type="button" class="btn btn-primary button-width" :to="{name:'edit-gallery', params:{id: gallery.id}}">Edit Gallery</router-link>
     </div><br>
     <div class="container"> 
         <h3>Comments</h3>
-        <table v-for="(comment, index) in gallery.comment" :key="comment.id" >
-            <hr>
+        <table v-for="(comment, index) in gallery.comment" :key="comment.id"  class="table">
+            
             <tr class="row">
                 <th class="col-8">Author: {{comment.user.first_name}}</th>
                 <th class="col">Created at: {{comment.created_at}}</th>
             </tr>
-            <hr>
             <tr>
                 <td>{{comment.text}}</td>
             </tr>
             <tr>
                 <td><button class="btn btn-danger" v-if="comment.user_id == authUser"  @click="deleteComment(index, comment.id)" >Delete Comment</button></td>
             </tr>
-            <hr>
+            
         </table>
     </div> 
     <br>
@@ -129,3 +128,21 @@ name: 'AppGallery',
 </script>
 
 
+<style scoped>
+
+
+.text{
+  font-weight: bold;
+  font-size: 18px;
+}
+.table{
+    width:100%;
+}
+.button-width{
+    min-width: 125px;
+}
+
+
+
+
+</style>
